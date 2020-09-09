@@ -1,0 +1,61 @@
+---
+title: "sep92020"
+author: "Matthew J Angle"
+date: "9/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library('tidyverse')
+library('tidytuesdayR')
+
+```
+
+```{r}
+# Get the Data
+
+# Read in with tidytuesdayR package 
+# Install from CRAN via: install.packages("tidytuesdayR")
+# This loads the readme and all the datasets for the week of interest
+
+# Either ISO-8601 date or year/week works!
+
+tuesdata <- tidytuesdayR::tt_load('2020-09-08')
+tuesdata <- tidytuesdayR::tt_load(2020, week = 37)
+
+friends <- tuesdata$friends
+
+# Or read in the data manually
+
+friends <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-08/friends.csv')
+friends_emotions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-08/friends_emotions.csv')
+friends_info <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-09-08/friends_info.csv')
+
+
+```
+```{r}
+friends_info
+```
+
+```{r}
+friends_emotions
+```
+
+```{r}
+friends
+```
+
+```{r}
+friends %>% 
+  count(speaker) %>% 
+  arrange(desc(n))
+```
+```{r}
+friends %>% 
+  group_by(season) %>% 
+  count(speaker) %>% 
+  filter(speaker != "Scene Directions") %>% 
+  arrange(season, desc(n)) %>%
+  filter(season == 10)
+```
